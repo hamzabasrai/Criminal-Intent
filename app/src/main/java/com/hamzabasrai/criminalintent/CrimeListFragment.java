@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by Hamza Basrai on 4/21/2017.
  */
@@ -22,6 +24,33 @@ public class CrimeListFragment extends Fragment {
         public CrimeHolder(View itemView) {
             super(itemView);
             mTitleTextView = (TextView) itemView;
+        }
+    }
+
+    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+
+        private List<Crime> mCrimes;
+
+        public CrimeAdapter(List<Crime> crimes) {
+            mCrimes = crimes;
+        }
+
+        @Override
+        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            return new CrimeHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(CrimeHolder holder, int position) {
+            Crime crime = mCrimes.get(position);
+            holder.mTitleTextView.setText(crime.getTitle());
+        }
+
+        @Override
+        public int getItemCount() {
+            return mCrimes.size();
         }
     }
 
