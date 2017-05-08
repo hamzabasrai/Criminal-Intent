@@ -83,6 +83,7 @@ public class CrimeListFragment extends Fragment {
     }
 
     private RecyclerView mCrimeRecyclerView;
+    private TextView mEmptyListView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
 
@@ -95,6 +96,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
+        mEmptyListView = (TextView) view.findViewById(R.id.empty_list_view);
         mCrimeRecyclerView = (RecyclerView) view.findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -165,6 +167,12 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
+        if (crimes.size() == 0) {
+            mEmptyListView.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyListView.setVisibility(View.GONE);
+        }
 
         if (mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
