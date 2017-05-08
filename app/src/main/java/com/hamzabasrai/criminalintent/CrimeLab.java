@@ -10,7 +10,7 @@ import java.util.UUID;
  * Created by Hamza Basrai on 4/21/2017.
  */
 
-public class CrimeLab {
+public class CrimeLab { //Singleton Class
 
     private static CrimeLab sCrimeLab;
 
